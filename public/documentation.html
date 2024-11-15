@@ -1,0 +1,278 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+    <a href="index.html">Retour</a>
+    <h1>Documentation de l'API - Port de Plaisance</h1>
+
+    <section>
+        <h2>Vue d'ensemble</h2>
+
+        <p>
+            Cette API permet de gérer les utilisateurs, les catways (pontons) et les réservations dans 
+            un port de plaisance. Elle offre des fonctionnalités pour créer, modifier, afficher et supprimer 
+            des utilisateurs, des catways et des réservations.
+        </p>
+        <br>
+        <p>
+            <strong>URL de base :</strong> http://localhost:3000
+        </p>
+
+        <h3>Technologies Utilisées</h3>
+        <ul>
+            <li><strong>Node.js</strong> et <strong>Express</strong> pour construire l'API</li>
+            <li><strong>MongoDB</strong> pour stocker les données des utilisateurs, des catways et des réservations.</li>
+            <li><strong>JWT</strong> (JSON Web Token) pour l'authentification.</li>
+        </ul>
+
+        <h3>Structure des Routes Principales</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ressource</th>
+                    <th>Méthode</th>
+                    <th>Endpoint</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Utilisateurs</td>
+                    <td>PUT</td>
+                    <td>/users/add</td>
+                    <td>Crée un nouvel utilisateur</td>
+                </tr>
+                <tr>
+                    <td>Utilisateurs</td>
+                    <td>PATCH</td>
+                    <td>/users/:id</td>
+                    <td>Modifie les informations d’un utilisateur</td>
+                </tr>
+                <tr>
+                    <td>Utilisateurs</td>
+                    <td>DELETE</td>
+                    <td>/users/:id</td>
+                    <td>Supprime un utilisateur</td>
+                </tr>
+                <tr>
+                    <td>Catways</td>
+                    <td>POST</td>
+                    <td>/catways</td>
+                    <td>Crée un nouveau catway</td>
+                </tr>
+                <tr>
+                    <td>Catways</td>
+                    <td>PUT</td>
+                    <td>/catways/:id</td>
+                    <td>Modifie les informations d’un catway</td>
+                </tr>
+                <tr>
+                    <td>Catways</td>
+                    <td>DELETE</td>
+                    <td>/catways/:id</td>
+                    <td>Supprime un catway</td>
+                </tr>
+                <tr>
+                    <td>Réservations</td>
+                    <td>POST</td>
+                    <td>/reservations/:catwayNumber</td>
+                    <td>Crée une réservation sur un catway</td>
+                </tr>
+                <tr>
+                    <td>Réservations</td>
+                    <td>GET</td>
+                    <td>/reservations</td>
+                    <td>	Affiche la liste de toutes les réservations</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>Tutoriel</h2>
+
+        <h3>Pré-requis</h3>
+        <ul>
+            <li><strong>Node.js</strong> (v14 ou plus récent) et <strong>MongoDB</strong> doivent être installés.</li>
+            <li>Cloner le dépôt et installer les dépendances avec la commande : <strong>npm install</strong></li>
+        </ul>
+
+        <h3>Lancer le serveur</h3>
+        <p>
+            S'assurer que MongoDB est en cours d’exécution et que les variables d'environnement (comme JWT_SECRET) 
+            sont configurées dans un fichier .env.
+        </p>
+        <p>Lancer le serveur avec <strong>npm start</strong> .</p>
+
+        <h3>Authentification</h3>
+        <ol>
+            <li>Créer un utilisateur avec la route <strong>/users/add</strong> .</li>
+            <li>Ce connecter avec <strong>/users/login</strong> pour obtenir un token JWT.</li>
+            <li>
+                Utiliser le token JWT pour autoriser toutes les autres requêtes en l'ajoutant dans 
+                l'en-tête <strong>Authorization</strong> sous la forme <strong>Bearer {token}</strong> .
+            </li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>Exemples</h2>
+
+        <h3>Exemples de requêtes</h3>
+        <h4>Création d'un utilisateur</h4>
+        <h5>Requête :</h5>
+        <pre>
+PUT /users/add
+Content-Type: application/json
+
+{
+  "name": "John",
+  "firstname": "Doe",
+  "email": "johndoe@example.com",
+  "password": "password123"
+}
+        </pre>
+
+        <h5>Réponse :</h5>
+        <pre>
+{
+    "message": "Utilisateur créé avec succès",
+    "user": {
+        "_id": "603d214f1f292a0017b8dd92",
+        "name": "John",
+        "firstname": "Doe",
+        "email": "johndoe@example.com"
+    }
+}
+              
+        </pre>
+
+        <h4>Modification d'utilisateur</h4>
+        <h5>Requête :</h5>
+        <pre>
+PATCH /users/603d214f1f292a0017b8dd92
+Authorization: Bearer {token}
+Content-Type: application/json
+            
+{
+    "name": "John Updated"
+}            
+        </pre>
+
+        <h5>Réponse :</h5>
+        <pre>
+{
+    "message": "Utilisateur modifié",
+    "user": {
+        "_id": "603d214f1f292a0017b8dd92",
+        "name": "John Updated",
+        "firstname": "Doe",
+        "email": "johndoe@example.com"
+    }
+}              
+        </pre>
+
+        <h4>Création de catway</h4>
+        <h5>Requête :</h5>
+        <pre>
+POST /catways
+Authorization: Bearer {token}
+Content-Type: application/json
+            
+{
+    "catwayNumber": 1,
+    "type": "long"
+}     
+        </pre>
+
+        <h5>Réponse :</h5>
+        <pre>
+{
+    "message": "Catway créé avec succès",
+    "catway": {
+        "_id": "603d21741f292a0017b8dd93",
+        "catwayNumber": 1,
+        "type": "long",
+        "catwayState": "Disponible"
+    }
+}
+        </pre>
+
+        <h3>Exemples de réponse en cas d'erreur</h3>
+        <p>
+            En cas de problème, comme des informations manquantes ou des autorisations incorrectes, 
+            l'API renvoie une erreur.
+        </p>
+
+        <h4>Erreur d'autorisation (401 Unauthorized)</h4>
+        <h5>Requête :</h5>
+        <p>GET /catways</p>
+
+        <h5>Réponse :</h5>
+        <pre>
+{
+    "error": "Token invalide ou manquant"
+}
+              
+        </pre>
+
+        <h4>Erreur de Validation (400 Bad Request)</h4>
+        <p>Si une requête comporte des champs manquants ou mal formatés, l'API renvoie une erreur de validation.</p>
+
+        <h5>Requête	:</h5>
+        <pre>
+POST /users/add
+Content-Type: application/json
+            
+{
+    "name": "John",
+    "firstname": ""
+} 
+        </pre>
+
+        <h5>Réponse :</h5>
+
+        <pre>
+{
+    "error": "Le champ 'firstname' est requis"
+}  
+        </pre>
+    </section>
+
+    <section>
+        <h2>Glossaire</h2>
+
+        <ul>
+            <li>
+                <strong>API (Application Programming Interface)</strong>
+                 : Interface qui permet aux applications de communiquer entre elles.
+            </li>
+            <li>
+                <strong>Catway</strong>
+                 : Terme désignant un ponton ou une passerelle dans un port de plaisance, permettant l’amarrage des bateaux.
+            </li>
+            <li>
+                <strong>Token JWT (JSON Web Token)</strong>
+                 : Jeton sécurisé utilisé pour l'authentification et la transmission d'informations de manière sécurisée.
+            </li>
+            <li>
+                <strong>CRUD</strong>
+                 : Acronyme pour Create, Read, Update, Delete, soit les quatre opérations de base pour la gestion des données.
+            </li>
+            <li>
+                <strong>Middleware</strong>
+                 : Fonction qui intercepte et traite les requêtes avant qu'elles n'atteignent leur destination 
+                 (par exemple, pour vérifier les autorisations).
+            </li>
+            <li>
+                <strong>Endpoint</strong>
+                 : URL spécifique où une ressource de l’API peut être accédée (par exemple, /users/add).
+            </li>
+        </ul>
+    </section>
+</body>
+</html>

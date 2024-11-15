@@ -1,0 +1,69 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Catways</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+    <h1>Liste des Catways</h1>
+
+    <!-- Conteneur pour la liste des catways -->
+    <div id="catwayList">
+        <p>Chargement des catways...</p>
+    </div>
+
+    <!-- Lien pour revenir au tableau de bord -->
+    <a href="dashboard.html">Retour au Tableau de Bord</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+
+            // Vérifie si le token est présent, sinon redirige vers la page de connexion
+            if (!token) {
+                alert("Veuillez vous connecter pour accéder à cette page.");
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                // Requête pour obtenir la liste des catways
+                const response = await fetch('http://localhost:3000/catways', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const catways = await response.json();
+
+                    // Sélectionne l'élément où afficher la liste
+                    const catwayList = document.getElementById('catwayList');
+                    catwayList.innerHTML = ''; // Vide le conteneur
+
+                    // Crée une liste des catways
+                    catways.forEach(catway => {
+                        const catwayDiv = document.createElement('div');
+                        catwayDiv.classList.add('catway-item');
+                        catwayDiv.innerHTML = `
+                            <p><strong>Numéro :</strong> ${catway.catwayNumber}</p>
+                            <p><strong>Type :</strong> ${catway.type}</p>
+                            <p><strong>État :</strong> ${catway.catwayState || 'Non spécifié'}</p>
+                            <p><strong>ID :</strong> ${catway._id}</p>
+                        `;
+                        catwayList.appendChild(catwayDiv);
+                    });
+                } else {
+                    const error = await response.json();
+                    document.getElementById('catwayList').innerHTML = `<p>Erreur : ${error.message}</p>`;
+                }
+            } catch (error) {
+                console.error('Erreur lors de la récupération des catways:', error);
+                document.getElementById('catwayList').innerHTML = '<p>Une erreur est survenue lors de la récupération des catways.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

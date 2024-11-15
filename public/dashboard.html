@@ -1,0 +1,130 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+    <h1>Tableau de Bord</h1>
+    <p>Bienvenue sur votre tableau de bord, vous pouvez gérer les utilisateurs, les catways, et les réservations.</p>
+
+    <section>
+        <h2>Utilisateurs</h2>
+
+        <a href="users.html">Liste des Utilisateurs</a>
+
+        <h3>Créer un utilisateur</h3>
+        <form id="createUserForm">
+            <label>Nom :</label>
+            <input type="text" id="userName" required>
+            <label>Prénom :</label>
+            <input type="text" id="userFirstname" required>
+            <label>Email :</label>
+            <input type="email" id="userEmail" required>
+            <label>Mot de passe :</label>
+            <input type="password" id="userPassword" required>
+            <button type="submit">Créer l'utilisateur</button>
+        </form>
+
+        <h3>Modifier un utilisateur</h3>
+        <form id="updateUserForm">
+            <label>ID de l'utilisateur :</label>
+            <input type="text" id="userIdUpdate" required>
+            <label>Nouveau nom :</label>
+            <input type="text" id="newUserName">
+            <label>Nouveau prénom :</label>
+            <input type="text" id="newUserFirstname">
+            <label>Nouvel email :</label>
+            <input type="email" id="newUserEmail">
+            <button type="submit">Modifier l'utilisateur</button>
+        </form>
+
+        <h3>Supprimer un utilisateur</h3>
+        <form id="deleteUserForm">
+            <label>ID de l'utilisateur :</label>
+            <input type="text" id="userIdDelete" required>
+            <button type="submit">Supprimer l'utilisateur</button>
+        </form>
+
+    </section>
+
+    <section>
+        <h2>Catways</h2>
+
+        <a href="catways.html">Liste des catways</a>
+
+        <h3>Créer un catway</h3>
+        <form id="createCatwayForm">
+            <label>Numéro de catway :</label>
+            <input type="number" id="catwayNumber" required>
+            <label>Type (long/short) :</label>
+            <input type="text" id="catwayType" required>
+            <button type="submit">Créer le catway</button>
+        </form>
+
+        <h3>Modifier l'état d'un catway</h3>
+        <form id="updateCatwayForm">
+            <label>ID du catway :</label>
+            <input type="text" id="catwayIdUpdate" required>
+            <label>Nouvel état :</label>
+            <input type="text" id="newCatwayState">
+            <button type="submit">Modifier le catway</button>
+        </form>
+
+        <h3>Supprimer un catway</h3>
+        <form id="deleteCatwayForm">
+            <label>ID du catway :</label>
+            <input type="text" id="catwayIdDelete" required>
+            <button type="submit">Supprimer le catway</button>
+        </form>
+
+        <h3>Afficher les détails d'un catway</h3>
+        <form id="getCatwayForm">
+            <label>ID du catway :</label>
+            <input type="text" id="catwayIdGet" required>
+            <button type="submit">Afficher les détails</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Réservations</h2>
+
+        <a href="reservations.html">Liste des réservations</a>
+
+        <h3>Enregistrer une réservation</h3>
+        <form id="createReservationForm">
+            <label>Numéro de catway :</label>
+            <input type="number" id="reservationCatwayNumber" required>
+            <label>Nom du client :</label>
+            <input type="text" id="clientName" required>
+            <label>Nom du bateau :</label>
+            <input type="text" id="boatName" required>
+            <label>Date d'arrivée :</label>
+            <input type="date" id="checkIn" required>
+            <label>Date de départ :</label>
+            <input type="date" id="checkOut" required>
+            <button type="submit">Enregistrer la réservation</button>
+        </form>
+
+        <h3>Supprimer une réservation</h3>
+        <form id="deleteReservationForm">
+            <label>ID de la réservation :</label>
+            <input type="text" id="reservationIdDelete" required>
+            <button type="submit">Supprimer la réservation</button>
+        </form>
+
+        <h3>Afficher les détails d'une réservation</h3>
+        <form id="getReservationForm">
+            <label>ID de la réservation :</label>
+            <input type="text" id="reservationIdGet" required>
+            <button type="submit">Afficher les détails</button>
+        </form>
+
+    </section>
+
+
+    <script src="./javascripts/dashboard.js"></script> 
+</body>
+
+</html>

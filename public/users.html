@@ -1,0 +1,70 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Utilisateurs</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+    <h1>Liste des Utilisateurs</h1>
+
+    <!-- Conteneur pour la liste des utilisateurs -->
+    <div id="userList">
+        <p>Chargement des utilisateurs...</p>
+    </div>
+
+    <!-- Lien pour revenir au tableau de bord -->
+    <a href="dashboard.html">Retour au Tableau de Bord</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+
+            // Vérifie si le token est présent, sinon redirige vers la page de connexion
+            if (!token) {
+                alert("Veuillez vous connecter pour accéder à cette page.");
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                // Requête pour obtenir la liste des utilisateurs
+                const response = await fetch('http://localhost:3000/users', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const users = await response.json();
+
+                    // Sélectionne l'élément où afficher la liste
+                    const userList = document.getElementById('userList');
+                    userList.innerHTML = ''; // Vide le conteneur
+
+                    // Crée une liste des utilisateurs
+                    users.forEach(user => {
+                        const userDiv = document.createElement('div');
+                        userDiv.classList.add('user-item');
+                        userDiv.innerHTML = `
+                            <p><strong>ID :</strong> ${user._id}</p>
+                            <p><strong>Nom :</strong> ${user.name}</p>
+                            <p><strong>Prénom :</strong> ${user.firstname}</p>
+                            <p><strong>Email :</strong> ${user.email}</p>
+                            <p><strong>Mot de passe (haché) :</strong> ${user.password}</p>
+                        `;
+                        userList.appendChild(userDiv);
+                    });
+                } else {
+                    const error = await response.json();
+                    document.getElementById('userList').innerHTML = `<p>Erreur : ${error.message}</p>`;
+                }
+            } catch (error) {
+                console.error('Erreur lors de la récupération des utilisateurs:', error);
+                document.getElementById('userList').innerHTML = '<p>Une erreur est survenue lors de la récupération des utilisateurs.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

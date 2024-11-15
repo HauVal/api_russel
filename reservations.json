@@ -1,0 +1,17 @@
+[
+    {
+      "catwayNumber": 1,
+      "clientName": "Jean Dupont",
+      "boatName": "L'Aventure",
+      "checkIn": "2023-10-01",
+      "checkOut": "2023-10-10"
+    },
+    {
+      "catwayNumber": 2,
+      "clientName": "Marie Curie",
+      "boatName": "Le Voyageur",
+      "checkIn": "2023-09-15",
+      "checkOut": "2023-09-20"
+    }
+  ]
+  

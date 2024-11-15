@@ -1,0 +1,13 @@
+{
+    "source": {
+      "include": ["app.js", "routes", "models", "services"],
+      "includePattern": ".js$",
+      "excludePattern": "(node_modules/|tests)"
+    },
+    "opts": {
+      "destination": "./docs",
+      "recurse": true,
+      "template": "default"
+    }
+  }
+  

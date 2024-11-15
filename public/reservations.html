@@ -1,0 +1,71 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Réservations</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+    <h1>Liste des Réservations</h1>
+
+    <!-- Conteneur pour la liste des réservations -->
+    <div id="reservationList">
+        <p>Chargement des réservations...</p>
+    </div>
+
+    <!-- Lien pour revenir au tableau de bord -->
+    <a href="dashboard.html">Retour au Tableau de Bord</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+
+            // Vérifie si le token est présent, sinon redirige vers la page de connexion
+            if (!token) {
+                alert("Veuillez vous connecter pour accéder à cette page.");
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                // Requête pour obtenir la liste des réservations
+                const response = await fetch('http://localhost:3000/reservations', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const reservations = await response.json();
+
+                    // Sélectionne l'élément où afficher la liste
+                    const reservationList = document.getElementById('reservationList');
+                    reservationList.innerHTML = ''; // Vide le conteneur
+
+                    // Crée une liste des réservations
+                    reservations.forEach(reservation => {
+                        const reservationDiv = document.createElement('div');
+                        reservationDiv.classList.add('reservation-item');
+                        reservationDiv.innerHTML = `
+                            <p><strong>Catway Numéro :</strong> ${reservation.catwayNumber}</p>
+                            <p><strong>Nom du client :</strong> ${reservation.clientName}</p>
+                            <p><strong>Nom du bateau :</strong> ${reservation.boatName}</p>
+                            <p><strong>Date d'arrivée :</strong> ${new Date(reservation.checkIn).toLocaleDateString()}</p>
+                            <p><strong>Date de départ :</strong> ${new Date(reservation.checkOut).toLocaleDateString()}</p>
+                            <p><strong>ID de la réservation :</strong> ${reservation._id}</p>
+                        `;
+                        reservationList.appendChild(reservationDiv);
+                    });
+                } else {
+                    const error = await response.json();
+                    document.getElementById('reservationList').innerHTML = `<p>Erreur : ${error.message}</p>`;
+                }
+            } catch (error) {
+                console.error('Erreur lors de la récupération des réservations:', error);
+                document.getElementById('reservationList').innerHTML = '<p>Une erreur est survenue lors de la récupération des réservations.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
