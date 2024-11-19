@@ -52,8 +52,9 @@
                             <p><strong>Nom du client :</strong> ${reservation.clientName}</p>
                             <p><strong>Nom du bateau :</strong> ${reservation.boatName}</p>
                             <p><strong>Date d'arrivée :</strong> ${new Date(reservation.checkIn).toLocaleDateString()}</p>
-                            <p><strong>Date de départ :</strong> ${new Date(reservation.checkOut).toLocaleDateString()}</p>
-                            <p><strong>ID de la réservation :</strong> ${reservation._id}</p>
+                            <button onclick="viewDetails('${reservation._id}')">Détails</button>
+
+                            
                         `;
                         reservationList.appendChild(reservationDiv);
                     });
@@ -66,6 +67,10 @@
                 document.getElementById('reservationList').innerHTML = '<p>Une erreur est survenue lors de la récupération des réservations.</p>';
             }
         });
+
+        function viewDetails(reservationId) {
+            window.location.href = `reservation.html?id=${reservationId}`;
+        }
     </script>
 </body>
 </html>

@@ -50,8 +50,7 @@
                         catwayDiv.innerHTML = `
                             <p><strong>Numéro :</strong> ${catway.catwayNumber}</p>
                             <p><strong>Type :</strong> ${catway.type}</p>
-                            <p><strong>État :</strong> ${catway.catwayState || 'Non spécifié'}</p>
-                            <p><strong>ID :</strong> ${catway._id}</p>
+                            <button onclick="viewDetails('${catway._id}')">Détails</button>
                         `;
                         catwayList.appendChild(catwayDiv);
                     });
@@ -64,6 +63,10 @@
                 document.getElementById('catwayList').innerHTML = '<p>Une erreur est survenue lors de la récupération des catways.</p>';
             }
         });
+
+        function viewDetails(catwayId) {
+            window.location.href = `catway.html?id=${catwayId}`;
+        }
     </script>
 </body>
 </html>

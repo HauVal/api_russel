@@ -1,6 +1,12 @@
+/**
+ * @typedef User
+ * @property {string} name.required - Nom de l'utilisateur
+ * @property {string} firstname - Prénom de l'utilisateur
+ * @property {string} email.required - Email de l'utilisateur
+ * @property {string} password.required - Mot de passe de l'utilisateur
+ */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// On importe le module bcrypt qui permet de hacher des expressions
 const bcrypt = require('bcrypt');
 
 const User = new Schema({

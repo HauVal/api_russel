@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la Réservation</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+    <h1 id="pageTitle">Détails de la Réservation</h1>
+    <div id="reservationDetails">
+        <p>Chargement...</p>
+    </div>
+
+    <a href="reservations.html">Retour à la Liste des Réservations</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+            const urlParams = new URLSearchParams(window.location.search);
+            const reservationId = urlParams.get('id');
+
+            if (!token) {
+                alert("Veuillez vous connecter pour accéder à cette page.");
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:3000/reservations/${reservationId}`, {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.ok) {
+                    const reservation = await response.json();
+
+                    const pageTitle = document.getElementById('pageTitle');
+                    pageTitle.textContent = `Détail de la réservation de ${reservation.clientName}`;
+                    
+                    const reservationDetails = document.getElementById('reservationDetails');
+                    reservationDetails.innerHTML = `
+                        <p><strong>Client :</strong> ${reservation.clientName}</p>
+                        <p><strong>Bateau :</strong> ${reservation.boatName}</p>
+                        <p><strong>Arrivée :</strong> ${new Date(reservation.checkIn).toLocaleDateString()}</p>
+                        <p><strong>Départ :</strong> ${new Date(reservation.checkOut).toLocaleDateString()}</p>
+                        <p><strong>Catway :</strong> ${reservation.catwayNumber}</p>
+                        <p><strong>ID de la réservation :</strong> ${reservation._id}</p>
+                    `;
+                } else {
+                    const error = await response.json();
+                    document.getElementById('reservationDetails').innerHTML = `<p>Erreur : ${error.message}</p>`;
+                }
+            } catch (error) {
+                console.error('Erreur lors de la récupération des détails de la réservation:', error);
+                document.getElementById('reservationDetails').innerHTML = '<p>Une erreur est survenue.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
