@@ -3,6 +3,8 @@ const router = express.Router();
 const service = require('../services/users');
 const auth = require('../middlewares/auth');
 const User = require('../models/user');
+const bcrypt = require('bcryptjs');
+
 
 /**
  * @swagger
