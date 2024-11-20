@@ -4,7 +4,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     const password = document.getElementById('password').value;
 
     try {
-        const response = await fetch('https://cryptic-cove-49012-31f7c559ec67.herokuapp.com/users/login', {
+        const response = await fetch('http://localhost:3000/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

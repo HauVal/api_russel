@@ -99,10 +99,11 @@ exports.login = async (req, res, next) => {
             return res.status(400).json({ message: "Mot de passe incorrect" });
         }
 
-        // Génère un token
+        // Génère un token JWT
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         return res.json({ token });
     } catch (error) {
-        return res.status(500).json(error);
+        console.error("Erreur lors de la connexion :", error); // Log de l'erreur pour le débogage
+        return res.status(500).json({ message: "Erreur lors de la connexion" });
     }
 };

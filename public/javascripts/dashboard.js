@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             email: document.getElementById('userEmail').value,
             password: document.getElementById('userPassword').value
         };
-        await fetch('https://cryptic-cove-49012-31f7c559ec67.herokuapp.com/users/add', {
+        await fetch('http://localhost:3000/users/add', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             firstname: document.getElementById('newUserFirstname').value,
             email: document.getElementById('newUserEmail').value
         };
-        await fetch(`https://cryptic-cove-49012-31f7c559ec67.herokuapp.com/users/${userId}`, {
+        await fetch(`http://localhost:3000/users/${userId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('deleteUserForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const userId = document.getElementById('userIdDelete').value;
-        await fetch(`https://cryptic-cove-49012-31f7c559ec67.herokuapp.com/users/${userId}`, {
+        await fetch(`http://localhost:3000/users/${userId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             catwayNumber: document.getElementById('catwayNumber').value,
             type: document.getElementById('catwayType').value
         };
-        await fetch('https://cryptic-cove-49012-31f7c559ec67.herokuapp.com/catways', {
+        await fetch('http://localhost:3000/catways', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const catwayId = document.getElementById('catwayIdUpdate').value;
         const newCatwayState = { catwayState: document.getElementById('newCatwayState').value };
-        await fetch(`https://cryptic-cove-49012-31f7c559ec67.herokuapp.com/catways/${catwayId}`, {
+        await fetch(`http://localhost:3000/catways/${catwayId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('deleteCatwayForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const catwayId = document.getElementById('catwayIdDelete').value;
-        await fetch(`https://cryptic-cove-49012-31f7c559ec67.herokuapp.com/catways/${catwayId}`, {
+        await fetch(`http://localhost:3000/catways/${catwayId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('getCatwayForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const catwayId = document.getElementById('catwayIdGet').value;
-        const response = await fetch(`https://cryptic-cove-49012-31f7c559ec67.herokuapp.com/catways/${catwayId}`, {
+        const response = await fetch(`http://localhost:3000/catways/${catwayId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
             checkIn: document.getElementById('checkIn').value,
             checkOut: document.getElementById('checkOut').value
         };
-        await fetch(`https://cryptic-cove-49012-31f7c559ec67.herokuapp.com/reservations/${reservationData.catwayNumber}`, {
+        await fetch(`http://localhost:3000/reservations/${reservationData.catwayNumber}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('deleteReservationForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const reservationId = document.getElementById('reservationIdDelete').value;
-        await fetch(`https://cryptic-cove-49012-31f7c559ec67.herokuapp.com/reservations/${reservationId}`, {
+        await fetch(`http://localhost:3000/reservations/${reservationId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('getReservationForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const reservationId = document.getElementById('reservationIdGet').value;
-        const response = await fetch(`https://cryptic-cove-49012-31f7c559ec67.herokuapp.com/reservations/${reservationId}`, {
+        const response = await fetch(`http://localhost:3000/reservations/${reservationId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
