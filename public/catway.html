@@ -27,7 +27,7 @@
             }
 
             try {
-                const response = await fetch(`http://localhost:3000/catways/${catwayId}`, {
+                const response = await fetch(`https://cryptic-cove-49012-31f7c559ec67.herokuapp.com/catways/${catwayId}`, {
                     method: 'GET',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
