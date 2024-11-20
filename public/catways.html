@@ -17,6 +17,8 @@
     <a href="dashboard.html">Retour au Tableau de Bord</a>
 
     <script>
+        const API_BASE_URL = window.location.origin;
+        
         document.addEventListener('DOMContentLoaded', async () => {
             const token = localStorage.getItem('token');
 
@@ -29,7 +31,7 @@
 
             try {
                 // Requête pour obtenir la liste des catways
-                const response = await fetch('http://localhost:3000/catways', {
+                const response = await fetch('${API_BASE_URL}/catways', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`

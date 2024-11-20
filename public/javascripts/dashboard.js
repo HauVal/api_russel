@@ -1,3 +1,5 @@
+const API_BASE_URL = window.location.origin;
+
 document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token'); // Récupère le token JWT pour les routes protégées
 
@@ -15,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
             email: document.getElementById('userEmail').value,
             password: document.getElementById('userPassword').value
         };
-        await fetch('http://localhost:3000/users/add', {
+        await fetch('${API_BASE_URL}/users/add', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             firstname: document.getElementById('newUserFirstname').value,
             email: document.getElementById('newUserEmail').value
         };
-        await fetch(`http://localhost:3000/users/${userId}`, {
+        await fetch(`${API_BASE_URL}/users/${userId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('deleteUserForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const userId = document.getElementById('userIdDelete').value;
-        await fetch(`http://localhost:3000/users/${userId}`, {
+        await fetch(`${API_BASE_URL}/users/${userId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -66,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             catwayNumber: document.getElementById('catwayNumber').value,
             type: document.getElementById('catwayType').value
         };
-        await fetch('http://localhost:3000/catways', {
+        await fetch('${API_BASE_URL}/catways', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -82,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const catwayId = document.getElementById('catwayIdUpdate').value;
         const newCatwayState = { catwayState: document.getElementById('newCatwayState').value };
-        await fetch(`http://localhost:3000/catways/${catwayId}`, {
+        await fetch(`${API_BASE_URL}/catways/${catwayId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -97,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('deleteCatwayForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const catwayId = document.getElementById('catwayIdDelete').value;
-        await fetch(`http://localhost:3000/catways/${catwayId}`, {
+        await fetch(`${API_BASE_URL}/catways/${catwayId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -110,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('getCatwayForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const catwayId = document.getElementById('catwayIdGet').value;
-        const response = await fetch(`http://localhost:3000/catways/${catwayId}`, {
+        const response = await fetch(`${API_BASE_URL}/catways/${catwayId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -129,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
             checkIn: document.getElementById('checkIn').value,
             checkOut: document.getElementById('checkOut').value
         };
-        await fetch(`http://localhost:3000/reservations/${reservationData.catwayNumber}`, {
+        await fetch(`${API_BASE_URL}/reservations/${reservationData.catwayNumber}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -144,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('deleteReservationForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const reservationId = document.getElementById('reservationIdDelete').value;
-        await fetch(`http://localhost:3000/reservations/${reservationId}`, {
+        await fetch(`${API_BASE_URL}/reservations/${reservationId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -157,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('getReservationForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const reservationId = document.getElementById('reservationIdGet').value;
-        const response = await fetch(`http://localhost:3000/reservations/${reservationId}`, {
+        const response = await fetch(`${API_BASE_URL}/reservations/${reservationId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

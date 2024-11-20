@@ -15,6 +15,8 @@
     <a href="reservations.html">Retour à la Liste des Réservations</a>
 
     <script>
+        const API_BASE_URL = window.location.origin;
+        
         document.addEventListener('DOMContentLoaded', async () => {
             const token = localStorage.getItem('token');
             const urlParams = new URLSearchParams(window.location.search);
@@ -27,7 +29,7 @@
             }
 
             try {
-                const response = await fetch(`http://localhost:3000/reservations/${reservationId}`, {
+                const response = await fetch(`${API_BASE_URL}/reservations/${reservationId}`, {
                     method: 'GET',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
