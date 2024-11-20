@@ -61,7 +61,35 @@ router.patch('/:id', auth, service.update);
 router.delete('/:id', auth, service.delete);
 
 // Route pour la connexion
-router.post('/login', service.login);
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Vérifiez si l'utilisateur existe
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé' });
+    }
+
+    // Vérifiez le mot de passe
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Mot de passe incorrect' });
+    }
+
+    // Générer un token JWT
+    const token = jwt.sign(
+      { userId: user._id },
+      process.env.JWT_SECRET || 'default_secret_key', // Assurez-vous que `JWT_SECRET` est défini
+      { expiresIn: '1h' }
+    );
+
+    res.status(200).json({ token, userId: user._id });
+  } catch (error) {
+    console.error('Erreur lors de la connexion :', error);
+    res.status(500).json({ message: 'Erreur interne du serveur' });
+  }
+});
 
 
 module.exports = router;
