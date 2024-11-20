@@ -18,7 +18,7 @@
 
     <script>
         const API_BASE_URL = window.location.origin;
-        
+
         document.addEventListener('DOMContentLoaded', async () => {
             const token = localStorage.getItem('token');
 
@@ -31,7 +31,7 @@
 
             try {
                 // Requête pour obtenir la liste des réservations
-                const response = await fetch('${API_BASE_URL}/reservations', {
+                const response = await fetch(`${API_BASE_URL}/reservations`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`

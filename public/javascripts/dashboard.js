@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
             email: document.getElementById('userEmail').value,
             password: document.getElementById('userPassword').value
         };
-        await fetch('${API_BASE_URL}/users/add', {
+        await fetch(`${API_BASE_URL}/users/add`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             catwayNumber: document.getElementById('catwayNumber').value,
             type: document.getElementById('catwayType').value
         };
-        await fetch('${API_BASE_URL}/catways', {
+        await fetch(`${API_BASE_URL}/catways`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
